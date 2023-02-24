@@ -3,4 +3,7 @@
     <string name="error_web_home">Error loading page</string>
     <string name="error_web_home_description">The server may be starting up. Pull-to-refresh to try again in a minute.</string>
     <string name="menu_progress">Loading…</string>
+    <string name="title_devices">Devices</string>
+    <string name="title_home">Home</string>
+    <string name="title_notifications">Notifications</string>
 </resources>
