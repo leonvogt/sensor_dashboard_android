@@ -32,3 +32,5 @@ output.json
 
 obj/
 .externalNativeBuild
+
+/app/google-services.json
