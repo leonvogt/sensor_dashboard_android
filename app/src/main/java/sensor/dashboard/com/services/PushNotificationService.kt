@@ -1,7 +1,7 @@
 package sensor.dashboard.com.services
 
 import android.Manifest
-import android.R
+import sensor.dashboard.com.R
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
@@ -46,7 +46,7 @@ class PushNotificationService : FirebaseMessagingService() {
         val notification: NotificationCompat.Builder = NotificationCompat.Builder(this, channelId)
             .setContentTitle(messageTitle)
             .setContentText(messageText)
-            .setSmallIcon(R.drawable.sym_def_app_icon)
+            .setSmallIcon(R.mipmap.ic_launcher)
             .setPriority(NotificationManager.IMPORTANCE_HIGH)
             .setAutoCancel(true)
 
