@@ -63,23 +63,25 @@ class MainActivity : AppCompatActivity(), TurboActivity {
         }
     }
 
+    private fun getFirebaseToken() {
+        FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
+            if (!task.isSuccessful) {
+                println("PushNotification: Fetching FCM registration token failed")
+                return@OnCompleteListener
+            }
+            // Get new FCM registration token
+            val token = task.result
+            println("PushNotification: $token")
+        })
+    }
     private fun askNotificationPermission() {
         // This is only necessary for API level >= 33 (TIRAMISU)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) ==
                 PackageManager.PERMISSION_GRANTED
             ) {
-                FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
-                    if (!task.isSuccessful) {
-                        println("PushNotification: Fetching FCM registration token failed")
-                        return@OnCompleteListener
-                    }
-                    // Get new FCM registration token
-                    val token = task.result
-                    println("PushNotification: $token")
-                })
-
-                // FCM SDK (and your app) can post notifications.
+                println("PushNotification: Permission granted")
+                getFirebaseToken()
             } else if (shouldShowRequestPermissionRationale(Manifest.permission.POST_NOTIFICATIONS)) {
                 println("PushNotification: Permission NOT granted")
             } else {
