@@ -6,10 +6,12 @@ import androidx.appcompat.app.AppCompatActivity
 import dev.hotwire.turbo.BuildConfig
 import dev.hotwire.turbo.config.TurboPathConfiguration
 import dev.hotwire.turbo.session.TurboSessionNavHostFragment
+import sensor.dashboard.com.features.web.WebBottomSheetFragment
 import sensor.dashboard.com.util.HOME_URL
 import sensor.dashboard.com.util.initDayNightTheme
 import sensor.dashboard.com.features.web.WebFragment
 import sensor.dashboard.com.features.web.WebHomeFragment
+import sensor.dashboard.com.features.web.WebModalFragment
 import kotlin.reflect.KClass
 
 class MainSessionNavHostFragment : TurboSessionNavHostFragment() {
@@ -24,7 +26,9 @@ class MainSessionNavHostFragment : TurboSessionNavHostFragment() {
         get() = listOf(
             WebFragment::class,
             WebHomeFragment::class,
-        )
+            WebModalFragment::class,
+            WebBottomSheetFragment::class,
+            )
 
     override val pathConfigurationLocation: TurboPathConfiguration.Location
         get() = TurboPathConfiguration.Location(
