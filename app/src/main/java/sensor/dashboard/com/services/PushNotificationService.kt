@@ -6,6 +6,8 @@ import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
 import android.content.pm.PackageManager
+import android.media.AudioAttributes
+import android.net.Uri
 import android.os.Build
 import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
@@ -31,17 +33,11 @@ class PushNotificationService : FirebaseMessagingService() {
         println("PushNotification: New token -> $token")
     }
     private fun displayNotification(remoteMessage: RemoteMessage, channelId: String, channelName: String) {
-        val messageTitle = remoteMessage.notification!!.title
-        val messageText  = remoteMessage.notification!!.body
+        val messageTitle = remoteMessage.notification?.title
+        val messageText  = remoteMessage.notification?.body
 
         val messageData  = remoteMessage.data
-        val sensorId     = messageData["sensor_id"]!!.toInt()
-
-        val channel = NotificationChannel(
-            channelId,
-            channelName,
-            NotificationManager.IMPORTANCE_HIGH
-        )
+        val sensorId     = messageData["sensor_id"]?.toInt() ?: 0
 
         val notification: NotificationCompat.Builder = NotificationCompat.Builder(this, channelId)
             .setContentTitle(messageTitle)
@@ -66,14 +62,16 @@ class PushNotificationService : FirebaseMessagingService() {
     private fun maybeCreateNotificationChannel(channelId: String, channelName: String, channelDescription: String) {
         // Create the NotificationChannel, but only on API 26+ because
         // the NotificationChannel class is new and not in the support library
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val importance = NotificationManager.IMPORTANCE_HIGH
-            val channel = NotificationChannel(channelId, channelName, importance).apply {
-                description = channelDescription
-            }
-            val notificationManager: NotificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-            notificationManager.createNotificationChannel(channel)
+        val importance = NotificationManager.IMPORTANCE_HIGH
+        val channel = NotificationChannel(channelId, channelName, importance).apply {
+            description = channelDescription
         }
+        channel.setSound(
+            Uri.parse("android.resource://${packageName}/raw/alarm_sound_1"),
+            AudioAttributes.Builder().setUsage(AudioAttributes.USAGE_NOTIFICATION).build()
+        )
+        val notificationManager: NotificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        notificationManager.createNotificationChannel(channel)
     }
 
 }
