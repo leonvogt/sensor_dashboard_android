@@ -12,6 +12,7 @@ import sensor.dashboard.com.util.initDayNightTheme
 import sensor.dashboard.com.features.web.WebFragment
 import sensor.dashboard.com.features.web.WebHomeFragment
 import sensor.dashboard.com.features.web.WebModalFragment
+import sensor.dashboard.com.util.PATH_CONFIGURATION_URL
 import kotlin.reflect.KClass
 
 class MainSessionNavHostFragment : TurboSessionNavHostFragment() {
@@ -32,7 +33,8 @@ class MainSessionNavHostFragment : TurboSessionNavHostFragment() {
 
     override val pathConfigurationLocation: TurboPathConfiguration.Location
         get() = TurboPathConfiguration.Location(
-            assetFilePath = "json/configuration.json"
+            assetFilePath = "json/configuration.json",
+            remoteFileUrl = PATH_CONFIGURATION_URL,
         )
 
     override fun onSessionCreated() {
