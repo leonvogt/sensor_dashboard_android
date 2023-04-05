@@ -33,6 +33,14 @@
         "uri": "turbo://fragment/web/modal/sheet",
         "pull_to_refresh_enabled": false
       }
+    },
+    {
+      "patterns": [
+        "/edit$"
+      ],
+      "properties": {
+        "pull_to_refresh_enabled": false
+      }
     }
   ]
 }
