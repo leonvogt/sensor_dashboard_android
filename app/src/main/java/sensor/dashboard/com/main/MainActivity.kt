@@ -36,12 +36,12 @@ class MainActivity : AppCompatActivity(), TurboActivity {
         setContentView(binding.root)
 
         val navView: BottomNavigationView = binding.navView
-        navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
+        navView.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
 
         delegate = TurboActivityDelegate(this, R.id.main_nav_host)
     }
 
-    private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
+    private val onNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
             R.id.navigation_home -> {
                 delegate.navigate(HOME_URL)
